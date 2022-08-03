@@ -85,6 +85,7 @@ Some facts about GCD's:
 \item Two integers $a, b \in \mathbb{Z}$ are said to be \textit{relatively prime} if $(a, b) = 1$
 \item Suppose $d = ( a, b )$, then $(\frac{a}{d},\frac{b}{d}) = 1$
 \item A fraction $\frac{p}{q}$ is in lowest terms when $(p, q) = 1$
+\item suppose $(a, b) = 1$ and $a | bc$, then $a | c$
 \item The notion of GCD's applies to multiple values too, suppose $a_1,a_2, \cdots, a_n \in \mathbb{Z}$, then \[(a_1, a_2, \cdots, a_n) = (a_1, a_2, \cdots, (a_{n-1}, a_n))\]
 Note that simply with the above definition, $(a_1, a_2, \cdots, a_n) = 1$ means that these numbers are \textit{mutually relatively prime}. A stronger statement is \textit{pairwise relatively prime}, where for any pair of the numbers $a_i$ and $a_j$ with $i \neq j$, $(a_i, a_j) = 1$.
 \end{itemize}
@@ -150,6 +151,69 @@ Given a continued fraction \[C = [a_0;a_1,a_2,\cdots,a_n]\] and $C_k = [a_0;a_1,
 \end{aligned}
 \]
 
+\section{Linear Diophantine Equations}
+
+A linear diophantine equation in two variables is an equation of the follow form \[ax+by=c\] where $a,b,c \in \mathbb{Z}$ and an integer solution $(x,y)$ is sought for. In general, an equation that is linear in the coefficients to the polynomial powers would be considered a diophantine equation. We will focus on linear diophantine equations in two variables. Much of the results we find here applies to diophantine equations of more than two variables.
+
+Let $d = (a, b)$. If $d \nmid c$, then the diophantine equation in question has no integral solutions. If $d \mid c$, then there are infinitely many solutions (granted that there are no restrictions on the solution space). Indeed, once we have an initial solution $(x_0, y_0)$, the rest of the solutions will all be of the form
+
+\[x = x_0 + \frac{b}{d}n,\;\;\;y = y_0 - \frac{a}{d}n \]
+
+for any integer $n$. Notice the minus sign on $y$.
+
+\subsection*{Systems of Linear Diophantine Equations}
+
+When there is a system of linear diophantine equations (most commonly two equations in 3 variables), the ideal approach is to substitute one equation into another, to reduce the system into a single equation. From there, solve as intended and substitute back for a full solution.
+
+\section{The Fundamental Theorem of Arithmetic}
+
+Every positive integer greater than 1 is \textit{uniquely} expressible as a product of primes, with the prime factors in non decreasing order: \[n = \prod_{i} p_i^{a_i}\]
+
+The sequence of $a_i$'s denote the exponents to each of the prime factors. If a prime factor $p_i \nmid =n$, then $a_i = 0$.
+
+Using this prime factorization form, we can describe the GCD and LCM (least common multiple) as follows, letting $a = \prod_{i}p_i^{a_i}$ and $b = \prod_{i}p_i^{b_i}$:
+
+\[(a,b) = \prod_{i}p_i^{\min(a_i,b_i)}\;\;[a,b] = \prod_{i}p_i^{\max(a_i, b_i)}\]
+
+As $\max(a_i, b_i) + \min(a_i, b_i) = a_i + b_i$, we can see from above that $(a,b) \cdot [a,b] = ab$
+
+\section{Congruences}
+
+Let $m$ be a positive integer. If $a,b \in \mathbb{Z}$, we say that $a$ is \textit{congruent} to $b$ modulo $m$ if $m \mid (a - b)$. Furthermore, we can write $a \equiv b \pmod{m}$ iff $a = b + km$ for some integer $k$. Here are some properties about arithmetic in modulo $m$:
+
+\begin{itemize}
+\item $a+c \equiv b + c \pmod{m}$
+\item $a - c \equiv b - c \pmod{m}$
+\item $ab \equiv bc \pmod{m}$
+\end{itemize}
+
+The congruence relation over a modulus forms an \textit{equivalence class}, which satisfies the following properties:
+
+\begin{itemize}
+\item Reflexitivity: $a \equiv a \pmod{m}$
+\item Symmetricity: $a \equiv b \pmod{m} \Leftrightarrow b \equiv a \pmod{m}$
+\item Transitivity: $a \equiv b \pmod{m} \wedge b \equiv c \pmod{m} \Rightarrow a \equiv c \pmod{m}$
+\end{itemize}
+
+A number in a modulo number system itself is referred to as a residue. If $a, b$ are congrument mod $m$, then their residues $a\pmod{m}$ and $b\pmod{m}$ have to be the same as well.
+
+A complete system of residues modulo $m$ is a set of integers such that every integer is congruent to exactly one integer of the set. Of which, the least non-negative residues modulo $m$ is the set \[\{0,1,\cdots,m -1\}\] When $m$ is odd, the absolute least residues modulo $m$ is the set \[\left\{-\frac{m-1}{2}, -\frac{m-3}{2}, \cdots, -1, 0, 1, \frac{m-3}{2}, \frac{m-1}{2}\right\}\]
+
+If $a,b,c,m \in \mathbb{Z}^+$ with $d = (c, m)$ and $ac \equiv bc \pmod{m}$, then $a \equiv b \pmod{\frac{m}{d}}$. In the case that $(c, m) = 1$, we simply have $a \equiv b \pmod{m}$.
+
+If we have $a \equiv b \pmod{m_i}$ for several values of $i$ and each $m_i$ are pairwise coprime, then $a \equiv b \pmod{\prod_im_i}$.
+
+\newpage
+
+\section{Infinimality of primes of the form $4k+3$}
+
+Before the actual proof can take place, we note that primes can only either be of the form $4k+1$ or $4k+3$, which are the odd numbers in mod 4.
+
+Also we note that if two numbers $a, b$ are both of the form $4k +1$, then $ab$ will also be of the form $4k + 1$ (proof omitted for brevity).
+
+To begin the actual proof, suppose we have a finite amount of primes of the form $4k+3$, Namely, all in the sequence $\{p_i\}$ starting with $p_0 = 3$. We construct the following: \[Q = 4\prod_{i=1}{p_i} + 3\]Note that $p_0 = 3$ is omitted from the expression.
+
+Clearly, $Q$ is a composite value of the form $4k+3$ by construction. It needs to have a factor that is of the form $4k+3$, as we have established that multiplication between numbers of the form $4k+1$ is closed. Therefore, for some $i$, $p_i \mid Q$. However, none of the $p_i$'s can divide $Q$ by construction. Therefore, $Q$ is another prime of the form $4k+3$, a contradiction to the assumption that there are only a finite amount of them.
 
 \end{multicols*}
 \end{document}
