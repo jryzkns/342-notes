@@ -179,6 +179,7 @@ As $\max(a_i, b_i) + \min(a_i, b_i) = a_i + b_i$, we can see from above that $(a
 
 \section{Congruences}
 
+
 Let $m$ be a positive integer. If $a,b \in \mathbb{Z}$, we say that $a$ is \textit{congruent} to $b$ modulo $m$ if $m \mid (a - b)$. Furthermore, we can write $a \equiv b \pmod{m}$ iff $a = b + km$ for some integer $k$. Here are some properties about arithmetic in modulo $m$:
 
 \begin{itemize}
@@ -195,7 +196,7 @@ The congruence relation over a modulus forms an \textit{equivalence class}, whic
 \item Transitivity: $a \equiv b \pmod{m} \wedge b \equiv c \pmod{m} \Rightarrow a \equiv c \pmod{m}$
 \end{itemize}
 
-A number in a modulo number system itself is referred to as a residue. If $a, b$ are congrument mod $m$, then their residues $a\pmod{m}$ and $b\pmod{m}$ have to be the same as well.
+A number in a modulo number system itself is referred to as a residue. If $a, b$ are congruent mod $m$, then their residues $a\pmod{m}$ and $b\pmod{m}$ have to be the same as well.
 
 A complete system of residues modulo $m$ is a set of integers such that every integer is congruent to exactly one integer of the set. Of which, the least non-negative residues modulo $m$ is the set \[\{0,1,\cdots,m -1\}\] When $m$ is odd, the absolute least residues modulo $m$ is the set \[\left\{-\frac{m-1}{2}, -\frac{m-3}{2}, \cdots, -1, 0, 1, \frac{m-3}{2}, \frac{m-1}{2}\right\}\]
 
@@ -203,9 +204,104 @@ If $a,b,c,m \in \mathbb{Z}^+$ with $d = (c, m)$ and $ac \equiv bc \pmod{m}$, the
 
 If we have $a \equiv b \pmod{m_i}$ for several values of $i$ and each $m_i$ are pairwise coprime, then $a \equiv b \pmod{\prod_im_i}$.
 
+For a given integer $a \in \mathbb{Z}/m\mathbb{Z}$, $a$ is either \textit{invertible} or a \textit{zero-divisor}. We focus on the case of invertibility. For an invertible $a$, its \textit{inverse} is a quantity $a^{-1}$ such that $a^{-1}a \equiv 1 \pmod{m}$.
+
+For a prime $p$ and $(a,p) = 1$, \[a\equiv a^{-1} \pmod{p} \Leftrightarrow a \equiv \pm 1 \pmod{p}\]
+
 \section{Linear Congruences}
 
-A linear congruence in one variable is of the form \[ax \equiv b \pmod{m}\] It can be similarly seen as a linear diophantine equation of the form $ax - my = b$. Analoguous to the study of linear diophantine equations, we can see that with $(a, m) = d$, if $d \mid b$, then $ax \equiv b \pmod{m}$ has $d$ incongruent solutions. In particular, if $(a,m) = 1$, then there is one unique solution.
+A linear congruence in one variable is of the form \[ax \equiv b \pmod{m}\] It can be similarly seen as a linear diophantine equation of the form $ax - my = b$. Analoguous to the study of linear diophantine equations, we can see that with $(a, m) = d$, if $d \mid b$, then $ax \equiv b \pmod{m}$ has $d$ incongruent solutions. The way to find these solutions follow from solutions of linear diophantines of the same kind.
+
+In particular, if $(a,m) = 1$, then there is one unique solution, which can by found by $x \equiv a^{-1}b \pmod{m}$.
+
+\section{Chinese Remainder Theorem}
+
+Let $m_1, m_2, \cdots, m_r$ be pairwise coprime positive integers. Then the system of congruences
+
+\[
+\begin{aligned}
+x &\equiv a_1 \pmod{m_1} \\
+x &\equiv a_2 \pmod{m_2} \\
+&\cdots \\
+x &\equiv a_r \pmod{m_r} \\
+\end{aligned}
+\]
+
+has a unique solution modulo $M = \prod_i^rm_i$. The solution will be a sum where each term will turn to 0 for all modulo's except one. That term will be focused on solving specifically that congruence. It's important to take a mod $M$ at the end.
+
+If $a,b \in \mathbb{Z}^+$, then the least positive residue of $2^a - 1$ modulo $a^b - 1$ is $2^r - 1$, where $r$ is the least positive residue of $a \pmod{b}$.
+
+If $a,b \in \mathbb{Z}^+$, then $(2^a - 1, 2^b - 1) = 2^{(a,b)} - 1$. With this we can also see that $(2^a - 1, 2^b - 1) = 1 \Leftrightarrow (a, b) = 1$.
+
+Suppose we have a polynomial $f(x)$ and we want to solve the congruence $f(x) \equiv 0 \pmod{m}$. We can obtain its solution by splitting $m$ into its prime factors and create a system of congruences. From there, we can proceed by applying the chinese remainder theorem.
+
+\section{Wilson's Theorem}
+
+If $n \geq 2$, then $n$ is prime iff \[(n - 1)! \equiv -1 \pmod{n}\]
+
+\section{Fermat's Little Theorem}
+
+If $p$ is prime and $a$ is an integer with $p \nmid a$, then \[a^{p-1} \equiv 1 \pmod{p}\]
+
+This theorem can take on multiple forms, such as \[a^{p} \equiv a \pmod{p}\] and for finding inverses, \[a^{p -2} \equiv a^{-1} \pmod{p}\]
+
+\section{Pseudoprimes}
+
+Let $b$ be a positive integer. If $n$ is a composite positive integer and $b^n \equiv b \pmod{n}$, then $n$ is called a pseudoprime to the base $b$. Note that this shows that the converse of FLT does not hold. Generally pseudoprimes are composites that pass a certain primality condition, such as the converse of FLT.
+
+If $d, n$ are positive integes s.t. $d \mid n$, then $2^d - 1 \mid 2^n - 1$. There are also infinitely many pseudoprimes to the base $2$.
+
+\section{Euler Totient}
+
+The function $\phi(n)$ is defined to be the number of positive integers not exceeding $n$, which are relatively prime to $n$. For a value $n$ with the prime power factorization $n = \prod_{i}p_i^{a_i}$, $\phi(n)$ has many properties:
+
+\begin{itemize}
+\item $\phi(n) = n \prod_{p \mid n} \left(1 - \frac{1}{p}\right)$
+\item $\phi(n) = \prod_{i} p_i^{a_i - 1}(p_i - 1)$
+\item For a prime $p$, $\phi(p) = p - 1$
+\item For a prime $p$, integer $a > 0$, $\phi(p^a) = p^a - p^{a-1}$
+\item $a \mid b \Rightarrow \phi(a) \mid \phi(b)$
+\item $(m,n) = 1 \Rightarrow \phi(mn) = \phi(m)\phi(n)$
+\item $\phi(n)$ is even when $n > 2$
+\end{itemize}
+
+To get point 1 on above, consider point 4 above and carry out the following manipulations:
+
+\[
+\begin{aligned}
+\phi(n) &= \phi(\prod_{i}p_i^{a_i}) \\
+&= \prod_i \phi(p_i^{a_i}) \\
+&= \prod_i (p_i^{a_i} - p_i^{a_i - 1}) \\
+&= \prod_i p_i^{a_i}( 1 - p_i^{-1}) \\
+&= n \prod_i ( 1 - p_i^{-1}) \\
+&= n \prod_{p \mid n} \left(1 - \frac{1}{p}\right)
+\end{aligned}
+\]
+
+The Euler Totient is considered a \textit{multiplicative} function, which will be described in greter detail later on.
+
+With knowledge of the Euler totient, we can present a more generalized version of FLT:
+
+\subsection*{Euler's Theorem}
+
+If $m$ is a positive integer and $a$ is an integer with $(a,m) = 1$, then \[a^{\phi(m)} \equiv 1 \pmod{m}\]
+
+\section{Multiplicative Functions}
+
+A \textit{arithmetic} function is a function that is defined for all positive integers. An arithmetic function is \textit{multiplicative} when if $(m,n) = 1$, $f(mn) = f(m)f(n)$. A \textit{totally-multplicative} function ignores the coprimality condition. One example of a multiplicative function is the Euler Totient function.
+
+A multiplicative function is easy to compute when it can be broken down into calls with smaller arguments.
+
+Let $f$ be an arithmetic function, then
+
+\[F(n) = \sum_{d \mid n} f(d)\]
+
+is called the  \textit{summatory} function of $f$.
+
+Let $n$ be a positive integer, then $n = \sum_{d \mid n}\phi(d)$.
+
+% TODO: 7.2
+
 
 \newpage
 
