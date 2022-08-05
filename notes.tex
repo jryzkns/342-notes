@@ -398,6 +398,30 @@ One important fact to note is that if $\phi(n)$ was made public, it is easy to f
 
 Therefore, $p+q$ is a known quantity. As an aside we observe that $(p-q)^2 = (p+q)^2 - 4pq = (p+q)^2 - 4n$. With $p - q = \sqrt{(p+q)^2 - 4n}$, so we can know $p + q$ and $p + q$. Therefore, $p, q$ can be obtained.
 
+\section{Order of an integer}
+
+Let $a, n in \mathbb{Z}$ with $(a,n) = 1$, $a \neq 0$, $n > 0$. The least positive $x \in \mathbb{Z}$ s.t. $a^x \equiv 1 \pmod{n}$ is called the \textit{order} of $a$ modulo $n$, denoted as $\text{ord}_na$. In other words
+
+\[a^{\text{ord}_na} \equiv 1 \pmod{n}\]
+
+A positive integer $x$ is a solution to $a^x \equiv 1 \pmod{n}$ iff $\text{ord}_na \mid x$.
+
+It follows from Euler's Theorem that for any $a$ that is coprime to the modulo $n$, $\text{ord}_na \mid \phi(n)$.
+
+If $(a,n) = 1$, $a^i \equiv a^j \pmod{n}$ iff $i \equiv j \pmod{\text{ord}_na}$.
+
+\subsection*{Primitive Roots}
+
+If $r,n \in \mathbb{Z}$ with $(r,n) = 1$, and if $\text{ord}_nr = \phi(n)$, then $r$ is called a \textit{primitive root} of $n$.
+
+If $(r,n) = 1$ and $r$ is a primitive root of $n$, then the integers $r^1,r^2,\cdots,r^{\phi(n)}$ form a reduced residue system modulo $n$.
+
+Suppose we have an exponent $u \in \mathbb{Z}^+$, then \[\text{ord}_n(a^u) = \frac{\text{ord}_na}{(\text{ord}_na, u)}\]
+
+We can see above that if $a$ is a primitive root, then $a^u$ is a primitive root iff $(\text{ord}_na, u) = (\phi(n),u) = 1$.
+
+If a positive integer $n$ has a primitive root, then it has a total of $\phi(\phi(n))$ incongruent primitive roots.
+
 \newpage
 
 \section{Infinimality of primes of the form $4k+3$}
