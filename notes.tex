@@ -251,6 +251,8 @@ Let $b$ be a positive integer. If $n$ is a composite positive integer and $b^n \
 
 If $d, n$ are positive integes s.t. $d \mid n$, then $2^d - 1 \mid 2^n - 1$. There are also infinitely many pseudoprimes to the base $2$.
 
+A composite number $n$ is said to be a \textit{Carmichael} number if \[b^{n-1} \equiv 1 \pmod{n}\] for any natural $b$ where $(b,n) = 1$. If $n$ is of the form $n = p_1\cdot p_k$, where each $p_i$ are distinct primes and $p_i - 1 \mid n - 1$ for any $i$, then $n$ is a Carmichael number.
+
 \section{Euler Totient}
 
 The function $\phi(n)$ is defined to be the number of positive integers not exceeding $n$, which are relatively prime to $n$. For a value $n$ with the prime power factorization $n = \prod_{i}p_i^{a_i}$, $\phi(n)$ has many properties:
@@ -296,12 +298,105 @@ Let $f$ be an arithmetic function, then
 
 \[F(n) = \sum_{d \mid n} f(d)\]
 
-is called the  \textit{summatory} function of $f$.
+is called the  \textit{summatory} function of $f$. A function $f$ is multiplicative iff its summatory function $F$ is multiplicative as well.
 
 Let $n$ be a positive integer, then $n = \sum_{d \mid n}\phi(d)$.
 
-% TODO: 7.2
+\subsection*{Sum and Number of divisors}
 
+The sum of divisors function $\sigma$ is defined as the sum of all positive divisors of $n$, including $n$ itself. The number of divisors function $\tau$ is defined as the number of positive divisors of $n$, including $n$ itself:
+
+\[\sigma(n) = \sum_{d \mid n} d \;\;\; \tau(n) = \sum_{d \mid n} 1\]
+
+Both $\sigma$ and $\tau$ are multiplicative.
+
+Let $p$ be a prime and $a$ be a positive integers, we have
+
+\[\sigma(p^a) = p^0 + p^1 + \cdots + p^a = \frac{p^{a+1} - 1}{p-1}\;\;\tau(p^a) = a + 1\]
+
+Generalizing to non-primes, if we have $n = \prod_{i}p_i^{a_i}$,
+
+\[\sigma(n) = \prod_{i}\frac{p_1^{a_i+1} - 1}{p_i-1}\;\;\tau(n) = \prod_{i}(a_i + 1)\]
+
+\section{Perfect and Mersenne Numbers}
+
+A positive integer $n$ is said to be a \textit{perfect} number if $\sigma(n) = 2n$. At the moment we only know of even perfect numbers and there aren't any know odd perfect numbers. An even number is perfect iff \[n = 2^{m-1}(2^m - 1)\] where $m \geq 2$ is an integer and $2^m - 1$ is prime.
+
+If $m$ is a positive integer, then $M_m = 2^m - 1$ is called the $m$th \textit{Mersenne Number}. If $p$ is prime and $M_p = 2^p - 1$ is also prime, then $M_p$ is called a \textit{Mersenne Prime}. If $m$ is a positive integer and $M_m$ is prime, then $m$ must be prime.
+
+If $p$ is an odd prime, then any divisor of $M_p$ is of the form $2kp+1$, where $k$ is a positive integer.
+
+\section{Mobius Inversion}
+
+To invert a summatory function, we can proceed as follows:
+
+\[f(n) = \sum_{d \mid n} \mu(d)F(n/d)\]
+
+where $\mu$ is a multiplicative Mobius function defined as follows:
+
+\[
+\mu(n) = \begin{cases}
+1 & \text{if } n=1; \\
+(-1)^r & \text{if } n = p_1p_2\cdots p_r, \text{where } p_i \text{ are primes;}\\
+0 & \text{otherwise.}
+\end{cases}
+\]
+
+The summatory function of $\mu$ satisfies
+
+\[F(n) = \sum_{d\mid n} \mu(d) = \begin{cases}
+1 & \text{if } n = 1; \\
+0 & \text{if } n > 1.
+\end{cases}
+\]
+
+Because $\sigma$ and $\tau$ are summatory functions to $f(n)=n$ and $f(n) = 1$, we can apply mobius inversion to get
+
+\[\sum_{d \mid n} \mu\left(\frac{n}{d}\right)\sigma(d) = n,\;\;\; \sum_{d \mid n} \mu\left(\frac{n}{d}\right)\tau(d) = 1\]
+
+\section{RSA Cryptography}
+
+RSA is a public key encryption/decryption scheme that relies on the difficulty in factoring large numbers. The setup involves the following:
+
+\begin{itemize}
+\item Let $n = pq$, with $p, q$ being distinct primes
+\item Encryption exponent $e \in \mathbb{Z}$ s.t. $(e, \phi(n)) =(e, \phi(pq)) = (e, \phi(p)\phi(q)) = (e, (p-1)(q-1))= 1$
+\item Decryption exponent $d \in \mathbb{Z}$ s.t. $de \equiv 1 \pmod{\phi(n)}$
+\end{itemize}
+
+Letting $P$ be the plaintext and $C$ be the ciphertext, we define our encryption function $E$ and decryption function $D$ as follows:
+
+\[ C = E(P) = P^e \pmod{n} \]
+\[ P = D(C) = C^d \pmod{n} \]
+
+Taking a closer look at how $D$ works,
+
+\[
+\begin{aligned}
+D(C) &\equiv D(E(P)) &\pmod{n} \\
+&\equiv (P^e)^d \equiv P^{ed} &\pmod{n}\\
+&\equiv P^{1 + k\phi(n)} &\pmod{n}\\
+&\equiv P(P^{\phi(n)})^k &\pmod{n}\\
+&\equiv P &\pmod{n}\\
+\end{aligned}
+\]
+
+Suppose there are two parties $A$, $B$, and $A$ wants to send $B$ a message. $B$ will start with generating two primes $p, q$ to compute $n$, $\phi(n) = (p-1)(q-1)$, and exponents $e$ and $d$. $B$ can now make $n, e$ public. Given $n, e$, $A$ can compute $C = E(P) = P^e \pmod{n}$ to send to $B$.
+
+The security in this cryptosystem lies in the fact that given $e$ and $n$, it is difficult factoring $n$ to determine $d$.
+
+One important fact to note is that if $\phi(n)$ was made public, it is easy to factor $n$ based off of that:
+
+\[
+\begin{aligned}
+\phi(n) &= \phi(pq) \\
+&= \phi(p)\phi(q) \\
+&= (p-1)(q-1) \\
+&= pq - (p+q) + 1 \\
+\end{aligned}
+\]
+
+Therefore, $p+q$ is a known quantity. As an aside we observe that $(p-q)^2 = (p+q)^2 - 4pq = (p+q)^2 - 4n$. With $p - q = \sqrt{(p+q)^2 - 4n}$, so we can know $p + q$ and $p + q$. Therefore, $p, q$ can be obtained.
 
 \newpage
 
