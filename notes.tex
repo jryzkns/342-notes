@@ -412,15 +412,42 @@ If $(a,n) = 1$, $a^i \equiv a^j \pmod{n}$ iff $i \equiv j \pmod{\text{ord}_na}$.
 
 \subsection*{Primitive Roots}
 
-If $r,n \in \mathbb{Z}$ with $(r,n) = 1$, and if $\text{ord}_nr = \phi(n)$, then $r$ is called a \textit{primitive root} of $n$.
+If $r,n \in \mathbb{Z}$ with $(r,n) = 1$, and if $\text{ord}_nr = \phi(n)$, then $r$ is called a \textit{primitive root} of $n$. Every prime has a primitive root.
 
-If $(r,n) = 1$ and $r$ is a primitive root of $n$, then the integers $r^1,r^2,\cdots,r^{\phi(n)}$ form a reduced residue system modulo $n$.
+If $(r,n) = 1$ and $r$ is a primitive root of $n$, then the integers $r^1,r^2,\cdots,r^{\phi(n)}$ form a reduced residue system modulo $n$. We can see that when $r$ is a primitive root and $(a,n) = 1$, $a \equiv r^x \pmod{n}$ for some $x$.
 
 Suppose we have an exponent $u \in \mathbb{Z}^+$, then \[\text{ord}_n(a^u) = \frac{\text{ord}_na}{(\text{ord}_na, u)}\]
 
 We can see above that if $a$ is a primitive root, then $a^u$ is a primitive root iff $(\text{ord}_na, u) = (\phi(n),u) = 1$.
 
 If a positive integer $n$ has a primitive root, then it has a total of $\phi(\phi(n))$ incongruent primitive roots.
+
+\section{Discrete Logarithms}
+
+When $(a,n) = 1$ and $r$ is a primitive root, the $x$ in $a \equiv r^x \pmod{n}$ is called the \textit{index} or \textit{discrete logarithm} of $a$ to base $r$, denoted as $\text{ind}_ra$. Note that the modulus $n$ is absent from the notation. We observe a few properties of discrete logarithms, note the typical continuous logarithm rules apply:
+
+\begin{itemize}
+\item $r^{\text{ind}_ra}\equiv a \pmod{n}$
+\item $\text{ind}_r1 \equiv 0 \pmod{\phi(n)}$
+\item $\text{ind}_r(ab) \equiv \text{ind}_ra + \text{ind}_rb \pmod{\phi(n)}$
+\item $\text{ind}_ra^k \equiv k \cdot \text{ind}_ra \pmod{\phi(n)}$, $k \in \mathbb{Z}^+$
+\end{itemize}
+
+Suppose $n$ has a primitive root, if we have an integer $a$ s.t. $(a,n) = 1$, then $x^k \equiv a \pmod{n}$ has a solution. Similarly, $a^{\frac{\phi(n)}{d}} \equiv 1 \pmod{n}$ where $d = (k, \phi(n))$. Furthermore, if there are solution of $x^k \equiv a \pmod{n}$, then there are exactly $d$ incongruent solutions mod $n$. A way to interpret such results is that if an integer $a$ is a $k$th power residue iff $a^{\frac{p-1}{(k, p-1)}} \equiv 1 \pmod{p}$.
+
+\section{Distribution Of Primes}
+
+A function $\pi(n)$ counts the number of primes up to $n$. It is importantly used in the following theorem:
+
+\subsubsection*{Prime Number Theorem}
+
+\[\lim_{x \rightarrow \infty} \frac{\pi(x)}{\frac{x}{\ln{x}}} = 1\]
+
+In other words, $\frac{x}{\ln{x}}$ and $\pi(x)$ are asymptotic. This is often written as $\pi(x) \sim \frac{x}{\ln{x}}$. When $a(x) \sim b(x)$, $\lim_{x \rightarrow \infty}\frac{a(x)}{b(x)} = 1$.
+
+Let $p_n$ be the $n$th prime, then $p_n \sim n\log{n}$.
+
+For any $n > 0$, there are at least $n$ consecutive composite positive integers.
 
 \newpage
 
