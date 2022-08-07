@@ -449,6 +449,83 @@ Let $p_n$ be the $n$th prime, then $p_n \sim n\log{n}$.
 
 For any $n > 0$, there are at least $n$ consecutive composite positive integers.
 
+\section{Quadratic Residues}
+
+If $m \in \mathbb{Z}^+$, we said that an integer $a$ is a \textit{quadratic residue} of $m$ if $(a,m) = 1$ and the congruence $x^2 \equiv a \pmod{m}$ has a solution. If this congruence has no solutions, then $a$ is a \textit{quadratic nonresidue}.
+
+Given a prime $p$ and $a \nmid p$, the congruence $x^2 \equiv a \pmod{p}$ has either no solutions or exactly two incongruent solutions mod $p$. For the case where we have two incongruent solutions, $x_0$ is a solution, then $-x_0$ is a solution as well.
+
+If $p$ is an odd prime, then there are exactly $\frac{p-1}{2}$ quadratic residues of $p$ and similarly $\frac{p-1}{2}$ quadratic nonresidues among $1,2,\cdots,p-1$.
+
+Let $p$ be a prime and let $r$ be a primiive root of $p$. If $a \nmid p$, then $a$ is a quadratic residue if $\text{ind}_ra$ is even, and a quadratic nonresidue otherwise. When $\textit{ind}_ra$ is even, we have an even exponent which can easily be written as a square, which is by definition a quadratic residue.
+
+Let $p$ be an odd prime and $a \nmid p$, The \textit{Legendre Symbol} $\left(\frac{a}{p}\right)$ is equal to $1$ when $a$ is a quadratic residue of $p$, and $-1$ otherwise. Below are some properties of Legendre Symbols:
+
+\begin{itemize}
+\item $a \equiv b \pmod{p} \Rightarrow \left(\frac{a}{p}\right)=\left(\frac{b}{p}\right)$
+\item $\left(\frac{a}{p}\right)\left(\frac{b}{p}\right)=\left(\frac{ab}{p}\right)$
+\item $\left(\frac{a^2}{p}\right) = 1$ (duh)
+\end{itemize}
+
+\subsubsection*{Euler's Criterion}
+
+Let $p$ be an odd prime and $a \nmid p$, then \[\left(\frac{a}{p}\right) \equiv a^{\frac{p-1}{2}} \pmod{p}\]
+
+We can verify one direction by supposing that a solution $x = x_0$ exists for $x^2 \equiv a \pmod{p}$. So $\left(\frac{a}{p}\right) = 1$ and $x_0^2 \equiv a$: $a^{\frac{p-1}{2}} = (x_0^2)^{\frac{p-1}{2}} = x_0^{p-1}$. As $\phi(p) = p-1$, by FLT $x_0^{p-1} \equiv 1 = \left(\frac{a}{p}\right)$.
+
+\subsubsection*{Gauss's Lemma}
+
+Let $p$ be an odd prime and $a$ an integer with $(a,p) = 1$. If $s$ is the number of least positive residues of the integers $a, 2a, 3a, \cdots, \frac{p-1}{2}a$ that are greater than $\frac{p}{2}$, then $\left(\frac{a}{p}\right) = (-1)^s$.
+
+\subsubsection*{When is -1 a Quadratic Residue}
+
+If $p$ is an odd prime, then
+
+\[
+\left(\frac{-1}{p}\right) = \begin{cases}
+1 & \text{if } p \equiv 1 \pmod{4} \\
+-1 & \text{if } p \equiv -1 \equiv 3 \pmod{4} \\
+\end{cases}
+\]
+
+The proof proceeds by seeing that $p\equiv 1 \pmod{4}$ makes $p$ of the form $4k +1$ and directly applying Euler's Criterion. The same goes for the $p \equiv -1 \pmod{4}$ case.
+
+\subsubsection*{When is 2 a Quadratic Residue}
+
+If $p$ is an odd prime, then
+
+\[\left(\frac{2}{p}\right) = (-1)^{\frac{p^2 - 1}{8}}\]
+
+So, $2$ is a quadratic residue of all primes $p \equiv \pm 1 \pmod{8}$ and a quadratic nonresidue of all primes $p \equiv \pm 3 \pmod{8}$.
+
+\section{The Law of Quadratic Reciprocity}
+
+Let $p, q$ be distinct odd primes, Then
+
+\[\left(\frac{p}{q}\right)\left(\frac{q}{p}\right) = (-1)^{\frac{p-1}{2}\frac{q-1}{2}}\]
+
+Suppose $p$ is an odd prime and $a$ is an integer where $a \nmid p$. If $q$ is a prime with $q \equiv \pm q \pmod{4a}$, then $\left(\frac{a}{p}\right) = \left(\frac{a}{q}\right)$.
+
+\section{The Jacobi Symbol}
+
+Let $n$ be an positive integer with prime factorization $n = \prod_{i = 1}^mp_i^{a_i}$, and let $a$ be an integer s.t. $(a,n) = 1$. The \textit{Jacobi Symbol} is defined by
+
+\[
+\left(\frac{a}{n}\right) = \left(\frac{a}{\prod_{i = 1}^mp_i^{a_i}}\right) = \prod_{i=1}^m\left(\frac{a}{p_i}\right)^{a_i}
+\]
+
+Each of $\left(\frac{a}{p_i}\right)$'s on the RHS are Legendre Symbols. Note that if a Jacobi symbol $\left(\frac{a}{n}\right)$ evaluates to $1$, it does not imply anything about if $a$ is a quadrati residue of $n$. Additionally, when $(a, n) \neq 1$, $\left(\frac{a}{n}\right) = 0$.
+
+\section{Sum of Squares}
+
+If $m,n$ are both sums of two squares, then $mn$ is also the sum of two squares.
+
+If $p$ is a prime of the form $p = 4k + 1$, then there exists $x,y$ such that $x^2 + y^2 = lp$ for some integer $l < p$.
+
+If $p$ is a prime not of the form $4k + 3$, then there are integers $x, y$ such that $x^2 + y^2 = p$
+
+The integer $n > 0$ is the sum of two squares iff each prime factor of $n$ of the form $4k +3$ occurs to an even power in the prime factorization of $n$.
+
 \newpage
 
 \section{Infinimality of primes of the form $4k+3$}
