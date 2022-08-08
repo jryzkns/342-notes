@@ -526,17 +526,40 @@ If $p$ is a prime not of the form $4k + 3$, then there are integers $x, y$ such 
 
 The integer $n > 0$ is the sum of two squares iff each prime factor of $n$ of the form $4k +3$ occurs to an even power in the prime factorization of $n$.
 
-\newpage
+\section{Pell's Equation}
 
-\section{Infinimality of primes of the form $4k+3$}
+A diophantine equation of the form $x^2 - dy^2 = n$ where $d,n$ are fixed integers is said to be a \textit{Pell's Equation} when $n = 1$. When $d$ and $n$ are both negative, there are no solutions. When $d$ is negative and $n$ is positive, there can be at most a finite number of solutions.
 
-Before the actual proof can take place, we note that primes can only either be of the form $4k+1$ or $4k+3$, which are the odd numbers in mod 4.
+The equation $x^2 = dy^2 = n$ implies that
 
-Also we note that if two numbers $a, b$ are both of the form $4k +1$, then $ab$ will also be of the form $4k + 1$ (proof omitted for brevity).
+\[|x| \leq \sqrt{n},\;\;\;|y| \leq \sqrt{\frac{n}{|d|}}\]
 
-To begin the actual proof, suppose we have a finite amount of primes of the form $4k+3$, Namely, all in the sequence $\{p_i\}$ starting with $p_0 = 3$. We construct the following: \[Q = 4\prod_{i=1}{p_i} + 3\]Note that $p_0 = 3$ is omitted from the expression.
+When $d$ is a square, say $d = D^2$, then the equation becomes a difference of squares:
 
-Clearly, $Q$ is a composite value of the form $4k+3$ by construction. It needs to have a factor that is of the form $4k+3$, as we have established that multiplication between numbers of the form $4k+1$ is closed. Therefore, for some $i$, $p_i \mid Q$. However, none of the $p_i$'s can divide $Q$ by construction. Therefore, $Q$ is another prime of the form $4k+3$, a contradiction to the assumption that there are only a finite amount of them.
+\[
+\begin{aligned}
+x^2 - dy^2 &= n \\
+x^2 - D^2y^2 &= n \\
+x^2 - (Dy)^2 &= n \\
+(x+Dy)(x-Dy) &= n \\
+\end{aligned}
+\]
+
+Let $d,n \in \mathbb{Z}$ s.t. $d > 0$ and $d$ is not a square. and with $|n| < \sqrt{d}$. If $x^2 - dy^2 = n$, then $\frac{x}{y}$ is the convergent of the simple continued fraction of $\sqrt{d}$.
+
+Let $d$ be a positive integer that is not a square, $\frac{p_k}{q_k}$ denote the $k$th convergent of the simple continued fraction of $\sqrt{d}$, and let $n$ be the period length of said continued fraction:
+
+when $n$ is even, there are no solutions for $x^2 - dy^2 = -1$, and positive solutions of $x^2 - dy^2 = 1$ are given by
+
+\[x = p_{jn-1},\;\;\;y = q_{jn-1}\]
+
+when $n$ is odd, the positive solutions to $x^2 - dy^2 = 1$ are given by
+
+\[x = p_{2jn-1},\;\;\;y = q_{2jn-1}\]
+
+and the positive solutions to $x^2 - dy^2 = -1$ are given by
+
+\[x = p_{(2j-1)n-1},\;\;\;y = q_{(2j-1)n-1}\]
 
 \end{multicols*}
 \end{document}
